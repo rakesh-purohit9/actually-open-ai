@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useForm from "hooks/useForm";
 
-const HomePagePage: React.FC = () => {
+const HomePage: React.FC = () => {
   const [apiData, setapiData] = React.useState<PostCompletionsResponseType>();
   const form = useForm({ prompt: "" });
 
@@ -21,10 +21,7 @@ const HomePagePage: React.FC = () => {
       .then((res) => {
         setapiData(res?.data);
 
-        localStorage.setItem(
-          "returnedData",
-          JSON.stringify(res?.data?.choices)
-        );
+        console.log(res?.data?.choices);
 
         toast.success("AI rocks!");
       })
@@ -43,7 +40,7 @@ const HomePagePage: React.FC = () => {
             as="h1"
             variant="h1"
           >
-            Actually Open AI{" "}
+            Actually Open AI
           </Text>
         </div>
         <div className="flex flex-col font-inter gap-[45px] items-center justify-start mt-[68px] md:px-[20px] md:w-[100%] w-[23%]">
@@ -90,7 +87,7 @@ const HomePagePage: React.FC = () => {
                 as="h4"
                 variant="h4"
               >
-                Hint: A short specific topic{" "}
+                Hint: A short specific topic
               </Text>
             </div>
             <div className="flex flex-col gap-[5px] items-start justify-start w-[327px]">
@@ -137,49 +134,19 @@ const HomePagePage: React.FC = () => {
             Write for me
           </Button>
         </div>
-        <Text
-          className="font-roboto leading-[20.00px] mt-[26px] not-italic text-black_900_99 text-left tracking-[0.25px] sm:w-[100%] w-[63%]"
-          as="h2"
-          variant="h2"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem
-          ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor
-          sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit
-          amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do{" "}
-        </Text>
+        {!!apiData?.choices?.[0]?.text ? (
+          <Text
+            className="font-roboto leading-[20.00px] mt-[26px] not-italic text-black_900_99 text-left tracking-[0.25px] sm:w-[100%] w-[63%]"
+            as="h3"
+            variant="h3"
+          >
+            {apiData?.choices?.[0]?.text}
+          </Text>
+        ) : null}
       </div>
       <ToastContainer />
     </>
   );
 };
 
-export default HomePagePage;
+export default HomePage;

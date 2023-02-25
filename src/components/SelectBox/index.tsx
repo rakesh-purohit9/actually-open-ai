@@ -5,9 +5,8 @@ import { ErrorMessage } from "../ErrorMessage";
 type selectOptionType = { value: string; label: string };
 
 const selectOptions: selectOptionType[] = [
-  { value: "option1", label: "Option1" },
-  { value: "option2", label: "Option2" },
-  { value: "option3", label: "Option3" },
+  { value: "Write an email for: ", label: "Write Email" },
+  { value: "Write an Essay", label: "Write an Essay" },
 ];
 
 const variants = {

@@ -2,7 +2,7 @@ import Axios, { AxiosRequestConfig } from "axios";
 
 const defaultAxios = Axios.create({
   headers: {
-    Authorization: "Bearer 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",
+    Authorization: "Bearer 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",
     "Content-Type": "application/json",
   },
 });
