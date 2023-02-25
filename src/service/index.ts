@@ -1,8 +1,9 @@
 import Axios, { AxiosRequestConfig } from "axios";
 
+const OPEN_AI_TOKEN = "";
 const defaultAxios = Axios.create({
   headers: {
-    Authorization: "Bearer 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",
+    Authorization: `Bearer ${OPEN_AI_TOKEN}`,
     "Content-Type": "application/json",
   },
 });

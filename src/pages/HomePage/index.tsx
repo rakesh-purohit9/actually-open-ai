@@ -12,17 +12,26 @@ import useForm from "hooks/useForm";
 
 const HomePage: React.FC = () => {
   const [apiData, setapiData] = React.useState<PostCompletionsResponseType>();
+  const [selectedValue, setSelectedValue] = React.useState("");
   const form = useForm({ prompt: "" });
 
   function callApi(data: Partial<{ prompt: string }>) {
-    const req = { data: { prompt: data?.prompt } };
+    const req = {
+      data: {
+        prompt: `${selectedValue}${data?.prompt}`,
+        model: "text-curie-001",
+        temperature: 0,
+        max_tokens: 150,
+        top_p: 1,
+        frequency_penalty: 1,
+        presence_penalty: 1,
+      },
+    };
 
     postCompletions(req)
       .then((res) => {
         setapiData(res?.data);
-
         console.log(res?.data?.choices);
-
         toast.success("AI rocks!");
       })
       .catch((err) => {
@@ -45,6 +54,7 @@ const HomePage: React.FC = () => {
         </div>
         <div className="flex flex-col font-inter gap-[45px] items-center justify-start mt-[68px] md:px-[20px] md:w-[100%] w-[23%]">
           <div className="flex flex-col md:gap-[40px] gap-[69px] items-center justify-start w-[100%]">
+            {/* topic */}
             <div className="flex flex-col gap-[5px] items-start justify-start w-[327px]">
               <Text
                 className="not-italic text-black_900_dd text-left tracking-[0.50px] w-[auto]"
@@ -90,6 +100,7 @@ const HomePage: React.FC = () => {
                 Hint: A short specific topic
               </Text>
             </div>
+            {/* dropdown */}
             <div className="flex flex-col gap-[5px] items-start justify-start w-[327px]">
               <Text
                 className="not-italic text-black_900_dd text-left tracking-[0.50px] w-[auto]"
@@ -105,6 +116,11 @@ const HomePage: React.FC = () => {
                 placeholder="Operation"
                 isSearchable={false}
                 isMulti={false}
+                value={selectedValue}
+                onChange={(selectedVal) => {
+                  console.log(selectedVal);
+                  setSelectedValue(selectedVal);
+                }}
                 indicator={
                   <Img
                     src="images/img_arrowdown.svg"
@@ -140,7 +156,7 @@ const HomePage: React.FC = () => {
             as="h3"
             variant="h3"
           >
-            {apiData?.choices?.[0]?.text}
+            {apiData?.choices?.[0]?.text?.replaceAll(/\n/g,' ')?.replaceAll(/\r/g,' ')}
           </Text>
         ) : null}
       </div>
